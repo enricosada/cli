@@ -173,6 +173,7 @@ namespace Microsoft.DotNet.Tools.Compiler.Fsc
 
             if (options.SuppressWarnings != null)
             {
+                commonArgs.AddRange(options.SuppressWarnings.Select(w => $"--nowarn:{w}"));
             }
 
             // Additional arguments are added verbatim
