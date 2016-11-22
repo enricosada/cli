@@ -209,7 +209,10 @@ namespace Microsoft.DotNet.ProjectJsonMigration
             var compilerName =
                 defaultProjectContext.ProjectFile.GetCompilerOptions(defaultProjectContext.TargetFramework, "_")
                     .CompilerName;
-            if (!compilerName.Equals("csc", StringComparison.OrdinalIgnoreCase))
+            
+            var supportedCompilers = new[] {"csc", "fsc"};
+            
+            if (!supportedCompilers.Any(cn => compilerName.Equals(cn, StringComparison.OrdinalIgnoreCase)))
             {
                 MigrationErrorCodes.MIGRATE20013(
                     $"Cannot migrate project {defaultProjectContext.ProjectFile.ProjectFilePath} using compiler {compilerName}").Throw();
